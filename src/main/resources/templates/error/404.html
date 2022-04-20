@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+    <title>Page Not Found</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <th:block th:if="${message} != null">
+        <div class="message" role="status">[[${message}]]</div>
+    </th:block>
+    <ul class="errors">
+        <li>Error: Page Not Found (404)</li>
+        <li>Path: [[${path}]]</li>
+    </ul>
+</body>
+</html>

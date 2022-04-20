@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+  <meta charset="UTF-8">
+  <title>投稿一覧</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+<div>
+    <h2>投稿一覧</h2>
+    <div class="alert alert-primary" th:if="${message} != null" th:text="${message}"></div>
+    <div id="controllers" class="col-12 index-category" role="navigation">
+        <p>キーワード検索</p>
+        <form method="get" th:action="@{/post/index}">
+            <div class="form-check form-check-inline mt-1 ml-2">
+                <label class="form-check-label" for="username">ユーザー名</label>
+                <input class="form-check-input" type="text" id="username" name="searchUsername" th:value="*{params?.searchUsername}">
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="title">タイトル</label>
+                <input class="form-check-input" type="text" id="title" name="searchTitle" th:value="*{params?.searchTitle}">
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="keyword">キーワード</label>
+                <input class="form-check-input" type="text" id="keyword" name="searchKeyword" th:value="*{params?.searchKeyword}">
+            </div>
+            <input type="submit" class="btn btn-primary" value="検索">
+        </form>
+        <div class="searchpanel__element">
+            <a th:href="@{/post/index}">絞り込み解除</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>投稿者</th>
+                <th>タイトル</th>
+                <th>投稿内容</th>
+                <th>投稿日時</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="record : ${page.content}">
+                <tr>
+                    <td>[[${record?.username}]]</td>
+                    <td>[[${record?.title}]]</td>
+                    <td>[[${record?.postContent}]]</td>
+                    <td>[[${@demoTagLib.postTime(record?.insTs)}]]</td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+    <div class="pagination" th:replace="/fragments/pagination(
+                page=${page}, path=${@demoTagLib.queryParam('/post/index', params)})"/>
+</div>
+</body>
+</html>

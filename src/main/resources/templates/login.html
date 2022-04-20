@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ログイン</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+
+<div id="content" role="main">
+    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+        ユーザIDとパスワードが一致しません。
+    </div>
+    <div class="alert alert-primary" role="alert" th:if="${param.logout}">
+        ログアウトしました。
+    </div>
+    <h1 class="h3 mt-2 mb-3 font-weight-normal">ログイン</h1>
+    <form class="w-25 mx-auto" method="post" th:action="@{/signin}">
+        <label for="username" class="sr-only">ユーザー名</label>
+        <input class="form-control" type="text" id="username" name="username" placeholder="ユーザー名を入力してください"><br>
+        <label for="password" class="sr-only">パスワード</label>
+        <input class="form-control" type="password" id="password" name="password" placeholder="パスワードを入力してください"><br>
+        <button class="btn btn-outline-primary my-1" type="submit">ログイン</button>
+    </form>
+    <a href="/signup">新規登録はこちら</a>
+</div>
+</body>
+</html>

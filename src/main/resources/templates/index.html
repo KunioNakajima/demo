@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+  <meta charset="UTF-8">
+  <title>HOME</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+<div id="content" role="main">
+    <h1 class="h3 mt-2 mb-3 font-weight-normal">HOME</h1>
+    <div class="col-12">
+        <span>アカウント管理</span>
+    </div>
+    <div class="col-12 index-category" role="navigation">
+        <ul>
+            <a th:href="@{/post/index}">投稿一覧</a><br>
+            <a th:href="@{/post/create}">投稿を作成</a>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

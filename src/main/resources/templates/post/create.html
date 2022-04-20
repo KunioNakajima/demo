@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+  <meta charset="UTF-8">
+  <title>投稿作成</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div id="content" role="main" th:object="${postForm}">
+    <div class="alert alert-danger" role="alert" th:if="${message} != null">[[${message}]]</div>
+    <ul th:if="${#fields.hasErrors()}">
+        <div class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:data-field-id="${error.getFieldName()}" th:text="${error.message}"></div>
+    </ul>
+    <h1 class="h3 mt-2 mb-3 font-weight-normal text-center">投稿作成</h1>
+    <form class="w-25 mx-auto" method="post" th:action="@{/post/save}">
+        <label for="title" class="sr-only">タイトル</label>
+        <input class="form-control" type="text" id="title" name="title" th:value="*{title}" placeholder="タイトル">
+        <label for="postContent" class="sr-only">投稿内容</label>
+        <input class="form-control" type="text" id="postContent" name="postContent" required="required" th:value="*{postContent}" placeholder="投稿内容(必須)">
+        <button class="btn btn-outline-primary my-1" type="submit">投稿</button>
+    </form>
+</div>
+</body>
+</html>

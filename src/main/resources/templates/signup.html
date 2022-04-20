@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>アカウント登録</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="text-center">
+<div id="content" role="main" th:object="${accountForm}">
+    <div class="alert alert-danger" role="alert" th:if="${message} != null">[[${message}]]</div>
+    <ul th:if="${#fields.hasErrors()}">
+        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:data-field-id="${error.getFieldName()}" th:text="${error.message}"></li>
+    </ul>
+    <h1 class="h3 mt-2 mb-3 font-weight-normal">アカウント登録</h1>
+    <form class="w-25 mx-auto" method="post" th:action="@{/signup}">
+        <label for="username" class="sr-only">ユーザー名</label>
+        <input class="form-control" type="text" id="username" name="username" required="required" th:value="*{username}" placeholder="ユーザー名を入力してください"><br>
+        <label for="password" class="sr-only">パスワード</label>
+        <input class="form-control" type="password" id="password" name="password" required="required" th:value="*{password}" placeholder="パスワードを入力してください"><br>
+        <label for="passwordConfirmation" class="sr-only">パスワード(確認)</label>
+        <input class="form-control" type="password" id="passwordConfirmation" name="passwordConfirmation" required="required" th:value="*{passwordConfirmation}" placeholder="パスワードを再度入力してください"><br>
+        <button class="btn btn-outline-primary my-1" type="submit">新規登録</button>
+    </form>
+    <a th:href="@{/login}">ログインページへ戻る</a>
+</div>
+</body>
+</html>
