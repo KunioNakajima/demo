@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     @Autowired
-    DemoUserDetailsService userService;
+    DemoUserDetailsService demoUserDetailsService;
 
     @ModelAttribute(AccountForm.ATTRIBUTE_NAME)
     public AccountForm setupAccountForm() {
@@ -35,12 +36,14 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/index", method = {RequestMethod.GET, RequestMethod.POST})
-    public String index() {
+    public String index(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
         return "index";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
         return "login";
     }
 
@@ -60,9 +63,9 @@ public class LoginController {
         }
 
         try {
-            userService.register(form.getUsername(), form.getPassword());
+            demoUserDetailsService.register(form.getUsername(), form.getPassword());
         } catch (DataIntegrityViolationException e) {
-            model.addAttribute("signupError", true);
+            model.addAttribute("message", "アカウントの作成に失敗しました。");
             return "signup";
         }
 

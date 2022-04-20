@@ -1,6 +1,7 @@
 package com.example.demo.validator;
 
 import com.example.demo.annotation.UsernameUniqueValidate;
+import com.example.demo.entity.Account;
 import com.example.demo.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraintvalidation.HibernateConstraintValidatorContext;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.List;
 import java.util.Locale;
 
 @Component
@@ -33,7 +35,8 @@ public class UsernameUniqueValidation implements ConstraintValidator<UsernameUni
             return true;
         }
 
-        if (accountRepository.selectByUsername(value).isEmpty()) {
+        List<Account> accounts = accountRepository.selectByUsername(value);
+        if (accounts.isEmpty()) {
             return true;
         }
         HibernateConstraintValidatorContext hibernateContext =
